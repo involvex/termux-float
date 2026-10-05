@@ -52,6 +52,9 @@ android {
     }
 
     packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
         // Remove terminal-shared JNI libs added via termux-shared dependency
         exclude "lib/*/liblocal-socket.so"
     }
