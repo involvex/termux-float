@@ -40,7 +40,6 @@ android {
 
         debug {
             signingConfig signingConfigs.debug
-            zipAlignEnabled true
         }
     }
 
@@ -52,17 +51,21 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            outputFileName = new File("invx-float-app_" +
-                    (apkVersionTag ? apkVersionTag : "v" + versionName + "+" + variant.buildType.name) + ".apk")
-        }
-    }
-
     packagingOptions {
         // Remove terminal-shared JNI libs added via termux-shared dependency
         exclude "lib/*/liblocal-socket.so"
     }
+}
+
+androidComponents {
+    onVariants(selector().all(), { variant ->
+        def apkVersionTagLocal = System.getenv("TERMUX_FLOAT_APP__BUILD__APK_VERSION_TAG") ?: ""
+        variant.outputs.forEach { output ->
+            def buildTypeName = variant.buildType
+            def apkName = "invx-float-app_" + (apkVersionTagLocal ? apkVersionTagLocal : "v" + android.defaultConfig.versionName + "+" + buildTypeName) + ".apk"
+            output.outputFileName.set(apkName)
+        }
+    })
 }
 
 dependencies {
