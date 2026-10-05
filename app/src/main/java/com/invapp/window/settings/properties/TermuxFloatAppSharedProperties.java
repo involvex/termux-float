@@ -1,12 +1,12 @@
-package com.termux.window.settings.properties;
+package com.invapp.window.settings.properties;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.termux.settings.properties.TermuxSharedProperties;
+import com.invapp.shared.termux.TermuxConstants;
+import com.invapp.shared.termux.settings.properties.TermuxPropertyConstants;
+import com.invapp.shared.termux.settings.properties.TermuxSharedProperties;
 
 public class TermuxFloatAppSharedProperties extends TermuxSharedProperties {
 

@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -8,14 +8,14 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.text.TextUtils;
 
-import com.termux.shared.logger.Logger;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.termux.terminal.TermuxTerminalSessionClientBase;
-import com.termux.shared.termux.terminal.io.BellHandler;
-import com.termux.terminal.TerminalColors;
-import com.termux.terminal.TerminalSession;
-import com.termux.terminal.TextStyle;
+import com.invapp.shared.logger.Logger;
+import com.invapp.shared.termux.TermuxConstants;
+import com.invapp.shared.termux.settings.properties.TermuxPropertyConstants;
+import com.invapp.shared.termux.terminal.TermuxTerminalSessionClientBase;
+import com.invapp.shared.termux.terminal.io.BellHandler;
+import com.invapp.terminal.TerminalColors;
+import com.invapp.terminal.TerminalSession;
+import com.invapp.terminal.TextStyle;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -134,7 +134,7 @@ public class TermuxFloatSessionClient extends TermuxTerminalSessionClientBase {
                             .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).build()).build();
 
             try {
-                mBellSoundId = mBellSoundPool.load(mService, com.termux.shared.R.raw.bell, 1);
+                mBellSoundId = mBellSoundPool.load(mService, com.invapp.shared.R.raw.bell, 1);
             } catch (Exception e){
                 // Catch java.lang.RuntimeException: Unable to resume activity {com.termux/com.termux.app.TermuxActivity}: android.content.res.Resources$NotFoundException: File res/raw/bell.ogg from drawable resource ID
                 Logger.logStackTraceWithMessage(LOG_TAG, "Failed to load bell sound pool", e);

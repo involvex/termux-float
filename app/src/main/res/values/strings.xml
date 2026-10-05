@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!DOCTYPE resources [
-    <!ENTITY TERMUX_PACKAGE_NAME "com.termux">
-    <!ENTITY TERMUX_APP_NAME "Termux">
-    <!ENTITY TERMUX_FLOAT_APP_NAME "Termux:Float">
+    <!ENTITY TERMUX_PACKAGE_NAME "com.involvex.termux_app">
+    <!ENTITY TERMUX_APP_NAME "InVxTermux">
+    <!ENTITY TERMUX_FLOAT_APP_NAME "InVx:Float">
     ]>
 
 <resources>

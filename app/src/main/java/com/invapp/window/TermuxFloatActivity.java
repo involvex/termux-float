@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.app.Activity;
 import android.content.Intent;

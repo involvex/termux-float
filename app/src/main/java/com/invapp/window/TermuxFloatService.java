@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -15,15 +15,15 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.termux.shared.data.IntentUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.notification.NotificationUtils;
-import com.termux.shared.shell.command.ExecutionCommand;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_FLOAT_APP.TERMUX_FLOAT_SERVICE;
-import com.termux.shared.termux.shell.command.environment.TermuxShellEnvironment;
-import com.termux.shared.termux.shell.command.runner.terminal.TermuxSession;
-import com.termux.terminal.TerminalSession;
+import com.invapp.shared.data.IntentUtils;
+import com.invapp.shared.logger.Logger;
+import com.invapp.shared.notification.NotificationUtils;
+import com.invapp.shared.shell.command.ExecutionCommand;
+import com.invapp.shared.termux.TermuxConstants;
+import com.invapp.shared.termux.TermuxConstants.TERMUX_FLOAT_APP.TERMUX_FLOAT_SERVICE;
+import com.invapp.shared.termux.shell.command.environment.TermuxShellEnvironment;
+import com.invapp.shared.termux.shell.command.runner.terminal.TermuxSession;
+import com.invapp.terminal.TerminalSession;
 
 public class TermuxFloatService extends Service {
 

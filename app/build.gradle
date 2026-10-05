@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.termux.window"
+    namespace "com.invapp.window"
 
     compileSdk project.properties.compileSdkVersion.toInteger()
     def appVersionName = System.getenv("TERMUX_FLOAT_APP__BUILD__APP_VERSION_NAME") ?: ""
     def apkVersionTag = System.getenv("TERMUX_FLOAT_APP__BUILD__APK_VERSION_TAG") ?: ""
 
     defaultConfig {
-        applicationId "com.termux.window"
+        applicationId "com.involvex.termux_app.window"
         minSdk project.properties.minSdkVersion.toInteger()
         targetSdk project.properties.targetSdkVersion.toInteger()
         versionCode 1001
@@ -17,9 +17,9 @@ android {
         if (appVersionName) versionName = appVersionName
         validateVersionName(versionName)
 
-        manifestPlaceholders.TERMUX_PACKAGE_NAME = "com.termux"
-        manifestPlaceholders.TERMUX_APP_NAME = "Termux"
-        manifestPlaceholders.TERMUX_FLOAT_APP_NAME = "Termux:Float"
+        manifestPlaceholders.TERMUX_PACKAGE_NAME = "com.involvex.termux_app"
+        manifestPlaceholders.TERMUX_APP_NAME = "InVxTermux"
+        manifestPlaceholders.TERMUX_FLOAT_APP_NAME = "InVx:Float"
     }
 
     signingConfigs {
@@ -35,12 +35,11 @@ android {
         release {
             minifyEnabled true
             shrinkResources false // Reproducible builds
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
             signingConfig signingConfigs.debug
-            zipAlignEnabled true
         }
     }
 
@@ -52,17 +51,24 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            outputFileName = new File("termux-float-app_" +
-                    (apkVersionTag ? apkVersionTag : "v" + versionName + "+" + variant.buildType.name) + ".apk")
-        }
-    }
-
     packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
         // Remove terminal-shared JNI libs added via termux-shared dependency
         exclude "lib/*/liblocal-socket.so"
     }
+}
+
+androidComponents {
+    onVariants(selector().all(), { variant ->
+        def apkVersionTagLocal = System.getenv("TERMUX_FLOAT_APP__BUILD__APK_VERSION_TAG") ?: ""
+        variant.outputs.forEach { output ->
+            def buildTypeName = variant.buildType
+            def apkName = "invx-float-app_" + (apkVersionTagLocal ? apkVersionTagLocal : "v" + android.defaultConfig.versionName + "+" + buildTypeName) + ".apk"
+            output.outputFileName.set(apkName)
+        }
+    })
 }
 
 dependencies {
@@ -72,14 +78,13 @@ dependencies {
 
     implementation "androidx.annotation:annotation:1.9.1"
 
-    implementation "com.termux.termux-app:termux-shared:8aca6dbbf4"
-    implementation "com.termux.termux-app:terminal-view:8aca6dbbf4"
-
-    // Use if below libraries are published locally by termux-app with `./gradlew publishReleasePublicationToMavenLocal` and used with `mavenLocal()`.
-    // If updates are done, republish there and sync project with gradle files here
-    // https://github.com/termux/termux-app/wiki/Termux-Libraries
-    //implementation "com.termux:termux-shared:0.118.0"
-    //implementation "com.termux:terminal-view:0.118.0"
+    // InVxTermux libraries published locally from involvex/termux-app with:
+    // ./gradlew :terminal-view:publishReleasePublicationToMavenLocal :termux-shared:publishReleasePublicationToMavenLocal
+    // Requires `mavenLocal()` in the root repositories block. Upstream used:
+    // implementation "com.termux.termux-app:termux-shared:8aca6dbbf4"
+    // implementation "com.termux.termux-app:terminal-view:8aca6dbbf4"
+    implementation "com.invapp:termux-shared:0.203.0"
+    implementation "com.invapp:terminal-view:0.203.0"
 
     implementation "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
 }
