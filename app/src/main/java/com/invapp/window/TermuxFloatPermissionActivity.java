@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

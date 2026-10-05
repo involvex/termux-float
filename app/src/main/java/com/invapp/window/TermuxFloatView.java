@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,15 +17,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.termux.shared.logger.Logger;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.settings.preferences.TermuxFloatAppSharedPreferences;
-import com.termux.shared.view.KeyboardUtils;
-import com.termux.terminal.TerminalSession;
-import com.termux.terminal.TerminalSessionClient;
-import com.termux.view.TerminalView;
-import com.termux.view.TerminalViewClient;
-import com.termux.window.settings.properties.TermuxFloatAppSharedProperties;
+import com.invapp.shared.logger.Logger;
+import com.invapp.shared.termux.TermuxConstants;
+import com.invapp.shared.termux.settings.preferences.TermuxFloatAppSharedPreferences;
+import com.invapp.shared.view.KeyboardUtils;
+import com.invapp.terminal.TerminalSession;
+import com.invapp.terminal.TerminalSessionClient;
+import com.invapp.view.TerminalView;
+import com.invapp.view.TerminalViewClient;
+import com.invapp.window.settings.properties.TermuxFloatAppSharedProperties;
 
 public class TermuxFloatView extends LinearLayout {
 

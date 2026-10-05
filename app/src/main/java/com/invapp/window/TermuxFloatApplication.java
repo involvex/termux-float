@@ -1,13 +1,13 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import com.termux.shared.logger.Logger;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.crash.TermuxCrashUtils;
-import com.termux.shared.termux.settings.preferences.TermuxFloatAppSharedPreferences;
+import com.invapp.shared.logger.Logger;
+import com.invapp.shared.termux.TermuxConstants;
+import com.invapp.shared.termux.crash.TermuxCrashUtils;
+import com.invapp.shared.termux.settings.preferences.TermuxFloatAppSharedPreferences;
 
 public class TermuxFloatApplication extends Application {
 

@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -6,11 +6,11 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import com.termux.shared.termux.terminal.TermuxTerminalViewClientBase;
-import com.termux.shared.view.KeyboardUtils;
-import com.termux.terminal.KeyHandler;
-import com.termux.terminal.TerminalEmulator;
-import com.termux.terminal.TerminalSession;
+import com.invapp.shared.termux.terminal.TermuxTerminalViewClientBase;
+import com.invapp.shared.view.KeyboardUtils;
+import com.invapp.terminal.KeyHandler;
+import com.invapp.terminal.TerminalEmulator;
+import com.invapp.terminal.TerminalSession;
 
 public class TermuxFloatViewClient extends TermuxTerminalViewClientBase {
 
@@ -39,7 +39,7 @@ public class TermuxFloatViewClient extends TermuxTerminalViewClientBase {
     }
 
     /**
-     * Should be called when {@link com.termux.view.TerminalView#mEmulator} is set
+     * Should be called when {@link com.invapp.view.TerminalView#mEmulator} is set
      */
     @Override
     public void onEmulatorSet() {

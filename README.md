@@ -1,6 +1,13 @@
-# Termux:Float
+# InVx:Float
 
-[![Build status](https://github.com/termux/termux-float/workflows/Build/badge.svg)](https://github.com/termux/termux-float/actions)
+> InVxTermux fork of [termux/termux-float](https://github.com/termux/termux-float).
+> Package `com.involvex.termux_app.window`, `sharedUserId` `com.involvex.termux_app`.
+> Install only alongside same-source InVxTermux APKs (matching test-key signature).
+> Depends on `com.invapp:termux-shared/terminal-view:0.203.0` published locally from
+> [involvex/termux-app](https://github.com/involvex/termux-app) via
+> `./gradlew :terminal-view:publishReleasePublicationToMavenLocal :termux-shared:publishReleasePublicationToMavenLocal`.
+
+[![Build status](https://github.com/involvex/termux-float/workflows/Build/badge.svg)](https://github.com/involvex/termux-float/actions)
 [![Join the chat at https://gitter.im/termux/termux](https://badges.gitter.im/termux/termux.svg)](https://gitter.im/termux/termux)
 
 A [Termux] plugin app to show the terminal in a floating terminal window.

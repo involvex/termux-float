@@ -1,4 +1,4 @@
-package com.termux.window;
+package com.invapp.window;
 
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 
-import com.termux.shared.view.ViewUtils;
-import com.termux.view.TerminalView;
+import com.invapp.shared.view.ViewUtils;
+import com.invapp.view.TerminalView;
 
 /**
  * Handles displaying our TermuxFloatView as a collapsed bubble and restoring back
