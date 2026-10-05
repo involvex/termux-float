@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.involvex.termux_app.window"
+    namespace "com.invapp.window"
 
     compileSdk project.properties.compileSdkVersion.toInteger()
     def appVersionName = System.getenv("TERMUX_FLOAT_APP__BUILD__APP_VERSION_NAME") ?: ""
