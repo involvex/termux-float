@@ -72,6 +72,12 @@ public class TermuxFloatView extends LinearLayout {
 
     boolean isInLongPressState;
 
+    /**
+     * True while a direct two-finger resize gesture (PiP-like, no long-press required)
+     * is taking over touch handling.
+     */
+    boolean mTwoFingerResizing;
+
     final int[] location = new int[2];
 
     final int[] windowControlsLocation = new int[2];
@@ -92,8 +98,11 @@ public class TermuxFloatView extends LinearLayout {
             int heightChange = (int) (detector.getCurrentSpanY() - detector.getPreviousSpanY());
             layoutParams.width += widthChange;
             layoutParams.height += heightChange;
-            layoutParams.width = Math.max(MIN_SIZE, layoutParams.width);
-            layoutParams.height = Math.max(MIN_SIZE, layoutParams.height);
+            // Clamp between a minimum touch target and the display size (PiP-like bounds)
+            int maxWidth = DISPLAY_WIDTH > 0 ? DISPLAY_WIDTH : layoutParams.width;
+            int maxHeight = DISPLAY_HEIGHT > 0 ? DISPLAY_HEIGHT : layoutParams.height;
+            layoutParams.width = Math.min(maxWidth, Math.max(MIN_SIZE, layoutParams.width));
+            layoutParams.height = Math.min(maxHeight, Math.max(MIN_SIZE, layoutParams.height));
             mWindowManager.updateViewLayout(TermuxFloatView.this, layoutParams);
             if (mPreferences != null) {
                 mPreferences.setWindowWidth(layoutParams.width);
@@ -210,7 +219,14 @@ public class TermuxFloatView extends LinearLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (isInLongPressState) return true;
+        if (isInLongPressState || mTwoFingerResizing) return true;
+
+        // PiP-like resize: take over the gesture as soon as a second finger is down,
+        // without requiring long-press first.
+        if (event.getPointerCount() >= 2) {
+            mTwoFingerResizing = true;
+            return true;
+        }
 
         getLocationOnScreen(location);
         int x = location[0];
@@ -275,9 +291,29 @@ public class TermuxFloatView extends LinearLayout {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (isInLongPressState) {
+        if (isInLongPressState || mTwoFingerResizing) {
             mScaleDetector.onTouchEvent(event);
-            if (mScaleDetector.isInProgress()) return true;
+            if (mScaleDetector.isInProgress()) {
+                mTwoFingerResizing = true;
+                return true;
+            }
+            if (mTwoFingerResizing) {
+                // Two-finger gesture that is not (or no longer) scaling: consume the
+                // remainder so the terminal does not see a broken touch stream.
+                // Exception: back to a single finger while long-pressing resumes
+                // normal move handling below.
+                int action = event.getActionMasked();
+                boolean backToSingleFingerMove = isInLongPressState && event.getPointerCount() < 2
+                        && action != MotionEvent.ACTION_UP && action != MotionEvent.ACTION_CANCEL;
+                if (backToSingleFingerMove) {
+                    mTwoFingerResizing = false;
+                } else {
+                    if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+                        mTwoFingerResizing = false;
+                    }
+                    return true;
+                }
+            }
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     layoutParams.x = Math.min(DISPLAY_WIDTH - layoutParams.width, Math.max(0, initialX + (int) (event.getRawX() - initialTouchX)));
